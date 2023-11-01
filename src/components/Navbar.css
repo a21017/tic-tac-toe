@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Nabla&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.nav-bar{
+    display: flex;
+    background-color: black;
+    height: 10vh;
+    width: 100vw;
+    color: white;
+    position: absolute;
+    align-items: center;
+    
+}
+
+.nav-list{
+    display: flex;
+    margin-left: 50px;
+    list-style: none;
+    font-family: 'Nabla', cursive;
+    font-size: 30px;
+}
+
+.nav-item{
+    margin-right: 50px;
+}

@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+.score-table{
+    height: 100%;
+    width: 100%;
+    
+}
+
+table *{
+    font-size: 1.5rem;
+}
+
+th {
+    font-family: 'Permanent Marker', cursive;
+}
+
+caption{
+    font-family: 'Permanent Marker', cursive;
+}
+
+td{
+    font-family: 'Permanent Marker', cursive;
+    text-align: center;
+}
+

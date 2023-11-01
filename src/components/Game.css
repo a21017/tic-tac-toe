@@ -1,0 +1,32 @@
+.game-container{
+    
+    display: flex;
+   
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.tic-tac-container{
+
+    position: relative;
+    right: 10px;
+    width: 400px;
+    height: 400px;
+    
+    
+
+}
+
+.score-board-container{
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    left: 10px;
+    width: 400px;
+    height: 400px;
+    
+}
+
