@@ -7,7 +7,7 @@ const PlayingBoard = (props)=>{
     
     const [board,setBoard]  = useState(Array(9).fill(null));
     const[score,setScore] = useState({1:0,2:0});
-     const [turn,setTurn] = useState('X');
+     const [turn,setTurn] = useState('O');
 
      useEffect(()=>{props.onGameEnd(score);},[score])
 
@@ -15,7 +15,7 @@ const PlayingBoard = (props)=>{
         
         
         setBoard(Array(9).fill(null));
-        setTurn('X');
+        setTurn('O');
 
 
      }
