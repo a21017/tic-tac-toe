@@ -2,8 +2,6 @@ import './PlayingBoard.css';
 import {React, useEffect, useState} from 'react';
 
 
-
-
 const PlayingBoard = (props)=>{
 
     
@@ -64,7 +62,16 @@ const PlayingBoard = (props)=>{
             
            }
 
-                  
+//if draw condition
+let flag = true;
+for (let i=0 ;i<9;i++){
+    if(!board[i])
+    flag=false;
+}
+        
+if(flag){
+    clearAll();
+}
         
         })
 
@@ -73,9 +80,8 @@ const PlayingBoard = (props)=>{
     const onPlay = (e)=>{
         let clickedElement = e.target;
         let id = clickedElement.id;
-
+        let updatedBoard = [...board];
         if(board[id]===null){
-            let updatedBoard = [...board];
             updatedBoard[id]=turn;
             setBoard(updatedBoard);
 
@@ -87,7 +93,7 @@ const PlayingBoard = (props)=>{
 
         console.log(board)
 
-        checkWinner(board);
+        checkWinner(updatedBoard);
         // if(clickedElement.innerHTML===''){
         //     clickedElement.innerText=turn;
         
