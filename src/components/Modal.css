@@ -1,0 +1,33 @@
+.model-container{
+    position:relative;
+    height: 100vh;
+    background-color: rgba(91, 91, 148, 0.3);
+    z-index: 20;
+}
+
+.modal {
+    position: absolute;
+    bottom: 50%;
+    right: 50%;
+    width: 200px;
+    height: 100px;
+    background-color: aliceblue;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    align-items: center;
+    border-radius: 15px;
+    animation-name: animatemodal;
+    animation-duration: 0.5s;
+  }
+
+  @keyframes animatemodal {
+    from {
+      right: -300px;
+    }
+  
+    to {
+      right : 50%;
+    }
+  }

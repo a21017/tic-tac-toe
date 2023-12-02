@@ -1,14 +1,17 @@
+import { useContext } from 'react';
 import './ScoreBoard.css';
+import AppContext from '../context/app-context';
 
 const ScoreBoard = (props)=>{
     console.log(props.gamescore)
+    const context = useContext(AppContext);
     return(
 <table>
     <caption>Score Table</caption>
     <thead>
         <tr>
-            <th>Player 1</th>
-            <th>Player 2</th>
+            <th>{context?.mySign==='O'?context.loggedInUser:context.oppositePlayer.name}</th>
+            <th>{context?.mySign==='X'?context.loggedInUser:context.oppositePlayer.name}</th>
         </tr>
     </thead>
     <tbody>

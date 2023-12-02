@@ -1,23 +1,49 @@
+import AppContext from '../context/app-context';
 import './PlayingBoard.css';
-import {React, useEffect, useState} from 'react';
+import {React, useContext, useEffect, useState} from 'react';
 
 
 const PlayingBoard = (props)=>{
 
+    const context = useContext(AppContext);
+    const socket = context.socket;
     
     const [board,setBoard]  = useState(Array(9).fill(null));
     const[score,setScore] = useState({1:0,2:0});
-     const [turn,setTurn] = useState('O');
+    const [turn,setTurn] = useState('O');
 
-     useEffect(()=>{props.onGameEnd(score);},[score])
+     useEffect(()=>{props.onGameEnd(score);
+        // socket.emit('onturnplay',{updatedBoard:Array(9).fill(null),oppositePlayer:context.oppositePlayer,turn:turn,score:score});
+            socket.emit('onscoreupdate',{oppositePlayer:context.oppositePlayer,score:score});
+    },[score]);
 
-     const clearAll=()=>{
+     useEffect(()=>{
+        socket.on('turnplayed',(updatedBoard,lTurn,score)=>{
+            setBoard(updatedBoard);
+            setTurn(lTurn);
+            console.log('Turn played by opposite player');
+            console.log('Board: ',updatedBoard);
+        })
+
+        socket.on('scoreupdated',(score)=>{
+            setScore(score);
+        })
+
+        socket.on('clearedall',(updatedBoard,lTurn,score)=>{
+            setBoard(updatedBoard);
+            setTurn(lTurn);
+            setScore(score);
+            console.log('Turn played by opposite player');
+            console.log('Board: ',updatedBoard);
+        })
+     },[socket])
+
+     const clearAll=(updatedscore)=>{
         
-        
+        console.log('onturnplay event sender : '+context.loggedInUser+" receiver: "+context.oppositePlayer)
+        socket.emit('onturnplay',{updatedBoard:Array(9).fill(null),oppositePlayer:context.oppositePlayer,turn:turn,score:updatedscore});
         setBoard(Array(9).fill(null));
-        setTurn('O');
-
-
+        
      }
 
      const checkWinner=(board)=>{
@@ -33,12 +59,12 @@ const PlayingBoard = (props)=>{
         ]
 
         let tiles = document.querySelectorAll('.tile');
-        
+        let updateScore = {...score};
         answers.forEach((ans)=>{
            if((board[ans[0]]===board[ans[1]])&&(board[ans[1]]===board[ans[2]])&&(board[ans[2]]===board[ans[0]])&&(board[ans[0]]!==null)){
             if(turn==='O'){
 
-                
+                updateScore = {...updateScore,1:updateScore[1]+1}
                 setScore((prev)=>{
                     let cscore = prev[1];
                     let nScore = {...prev,1:cscore+1};
@@ -49,6 +75,7 @@ const PlayingBoard = (props)=>{
                 
             }
             else{
+                updateScore = {...updateScore,2:updateScore[2]+1};
                 setScore((prev)=>{
                     let cscore = prev[2];
                     let nScore = {...prev,2:cscore+1};
@@ -57,67 +84,52 @@ const PlayingBoard = (props)=>{
             }
 
             
-            clearAll();
+            clearAll(updateScore);
             
             
            }
 
 //if draw condition
-let flag = true;
+
+        
+        })
+
+        let flag = true;
 for (let i=0 ;i<9;i++){
     if(!board[i])
     flag=false;
 }
         
 if(flag){
-    clearAll();
+    clearAll(updateScore);
 }
-        
-        })
 
      }
 
     const onPlay = (e)=>{
+
+        if(turn!==context.mySign)
+        return;
+
         let clickedElement = e.target;
         let id = clickedElement.id;
         let updatedBoard = [...board];
-        if(board[id]===null){
+        if(board && board[id]===null){
             updatedBoard[id]=turn;
             setBoard(updatedBoard);
-
+            socket.emit('onturnplay',{updatedBoard:updatedBoard,oppositePlayer:context.oppositePlayer,turn:turn});
+            console.log("Turn played by me");
             if(turn==='X')
             setTurn('O');
             else
             setTurn('X');
+
+            checkWinner(updatedBoard);
+
         }
 
         console.log(board)
 
-        checkWinner(updatedBoard);
-        // if(clickedElement.innerHTML===''){
-        //     clickedElement.innerText=turn;
-        
-        // let winner = checkWinner(board);
-        // console.log(winner)
-        // if(winner==='X'){
-        //             setScore((prev)=>{
-        //             let cscore = prev[1];
-        //             let nScore = {...prev,1:cscore+1};
-        //             return nScore;});
-                    
-        // }
-        // else if(winner==='O'){
-        //     setScore((prev)=>{
-        //         let cscore = prev[2];
-        //         let nScore = {...prev,2:cscore+1};
-        //         return nScore;});
-                
-        // }
-        
-        // console.log(score);
-        
-        // turn = turn==='X'?'O':'X';
-        // }
 
     }
 

@@ -1,11 +1,27 @@
+import { useState,useContext, useEffect } from "react";
 import Game from "./Game";
 import Navbar from "./Navbar";
+import Modal from "./Modal";
+import "./MainScreen.css"
+import AppContext from "../context/app-context";
+const MainScreen = (props) => {
 
-const MainScreen = () => {
+  const [modalOpen,setOpen] = useState(false);
+
+  const context = useContext(AppContext);
+
+  useEffect(()=>{
+    if(context.incomingReq)
+    setOpen(true)
+  },[context.incomingReq])
+
   return (
     <div>
-      <Navbar />
-      <Game />
+      <Modal open={modalOpen} onClose={()=>{setOpen(false)}}/>
+      <div className="main-screen">
+      <Navbar name={props.name} onQuit={props.onQuit} />
+      <Game onlinePlayers={props.onlinePlayers} />
+      </div>
     </div>
   );
 };
