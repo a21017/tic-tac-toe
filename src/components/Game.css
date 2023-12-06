@@ -1,7 +1,7 @@
 .game-container{
     
     display: flex;
-    background-color: white;
+    background-color: rgba(82, 75, 75,0.12);
     width: 100vw;
     height: 100vh;
     justify-content: center;

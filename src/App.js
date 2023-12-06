@@ -20,9 +20,14 @@ function App() {
 
   const onQuit = ()=>{
 
+    socket.emit('onGameQuit',{oppositePlayer:oppositePlayer});
     socket.disconnect();
+    setLoggedUser(null);
     setSocket(null);
     setAuthenticated(false);
+    setIncomingRequest(null);
+    setOpposition(null);
+    setSign(null);
   }
 
   useEffect(()=>{
@@ -50,8 +55,16 @@ function App() {
         setOpposition({name:acceptedResponse.senderName,socketId:acceptedResponse.senderSocketId});
         setSign('O');
       })
+
+      socket.on('gameQuit',()=>{
+        setIncomingRequest(null);
+        setOpposition(null);
+        setSign(null);
+      })
+    
     }
 
+    
 
   },[socket]);
 
