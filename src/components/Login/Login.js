@@ -11,7 +11,7 @@ const Login = (props) => {
 
 		e.preventDefault();
 		const name = e.target.elements.nameInput.value;
-		const socket = io("http://localhost:4000");
+		const socket = io("https://socket-tictactoe-1cgb.onrender.com");
 		socket.emit('onconnection',name);
 		props.setAuthenticated();
 		props.setSocket(socket);
