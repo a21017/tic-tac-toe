@@ -12,12 +12,12 @@ const Login = (props) => {
 		e.preventDefault();
 		const name = e.target.elements.nameInput.value;
 		const socket = io("https://socket-tictactoe-1cgb.onrender.com");
+		// const socket = io("http://localhost:4000");
 		socket.emit('onconnection',name);
 		props.setAuthenticated();
 		props.setSocket(socket);
 		props.setLoggedUser(name);
 		navigate('/');
-
 
 	}
 

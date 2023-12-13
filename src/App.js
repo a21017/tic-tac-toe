@@ -21,13 +21,13 @@ function App() {
   const onQuit = ()=>{
 
     socket.emit('onGameQuit',{oppositePlayer:oppositePlayer});
-    socket.disconnect();
-    setLoggedUser(null);
-    setSocket(null);
-    setAuthenticated(false);
-    setIncomingRequest(null);
-    setOpposition(null);
-    setSign(null);
+    // socket.disconnect();
+    // setLoggedUser(null);
+    // setSocket(null);
+    // setAuthenticated(false);
+    // setIncomingRequest(null);
+    // setOpposition(null);
+    // setSign(null);
   }
 
   useEffect(()=>{
@@ -56,10 +56,34 @@ function App() {
         setSign('O');
       })
 
-      socket.on('gameQuit',()=>{
-        setIncomingRequest(null);
-        setOpposition(null);
-        setSign(null);
+      socket.on('gameQuit',({oppositePlayer,quitPlayer})=>{
+        if(!oppositePlayer){
+          socket.disconnect();
+          setLoggedUser(null);
+          setSocket(null);
+          setAuthenticated(false);
+          setIncomingRequest(null);
+          setOpposition(null);
+          setSign(null);
+          return;
+        }
+
+        if(socket.id===quitPlayer){
+          console.log("Leaving: ",quitPlayer);
+          socket.disconnect();
+          setLoggedUser(null);
+          setSocket(null);
+          setAuthenticated(false);
+          setIncomingRequest(null);
+          setOpposition(null);
+          setSign(null);
+        }
+        else{
+
+          setIncomingRequest(null);
+          setOpposition(null);
+          setSign(null);
+        }
       })
     
     }
