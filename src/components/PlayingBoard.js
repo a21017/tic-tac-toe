@@ -134,17 +134,20 @@ if(flag){
     }
 
 
-    return <div className="board">
-        <div className="tile bt-0 bl-0" onClick={onPlay} id="0">{board[0]}</div>
-        <div className="tile bt-0" onClick={onPlay} id="1">{board[1]}</div>
-        <div className="tile br-0 bt-0" onClick={onPlay} id="2">{board[2]}</div>
-        <div className="tile bl-0" onClick={onPlay} id="3">{board[3]}</div>
-        <div className="tile" onClick={onPlay} id="4">{board[4]}</div>
-        <div className="tile br-0" onClick={onPlay} id="5">{board[5]}</div>
-        <div className="tile bl-0 bb-0" onClick={onPlay} id="6">{board[6]}</div>
-        <div className="tile bb-0" onClick={onPlay} id="7">{board[7]}</div>
-        <div className="tile br-0 bb-0" onClick={onPlay} id="8">{board[8]}</div>
-    </div>
+    return (
+        <div className="board grid grid-cols-3 grid-rows-3 w-full h-full">
+          <div className="tile bt-0 bl-0" onClick={onPlay} id="0">{board[0]}</div>
+          <div className="tile bt-0" onClick={onPlay} id="1">{board[1]}</div>
+          <div className="tile br-0 bt-0" onClick={onPlay} id="2">{board[2]}</div>
+          <div className="tile bl-0" onClick={onPlay} id="3">{board[3]}</div>
+          <div className="tile" onClick={onPlay} id="4">{board[4]}</div>
+          <div className="tile br-0" onClick={onPlay} id="5">{board[5]}</div>
+          <div className="tile bl-0 bb-0" onClick={onPlay} id="6">{board[6]}</div>
+          <div className="tile bb-0" onClick={onPlay} id="7">{board[7]}</div>
+          <div className="tile br-0 bb-0" onClick={onPlay} id="8">{board[8]}</div>
+        </div>
+      );
+      
 }
 
 export default PlayingBoard;

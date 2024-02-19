@@ -1,5 +1,5 @@
 import AppContext from "../context/app-context";
-import "./Game.css";
+// import "./Game.css";
 import OnlineUsersList from "./OnlineUsersList";
 import PlayingBoard from "./PlayingBoard";
 import ScoreBoard from "./ScoreBoard";
@@ -14,17 +14,23 @@ const Game = (props) => {
   };
 
   return (
-    <div className="game-container">
+    <div className="flex lg:justify-center md:justify-center sm:justify-center items-center min-h-screen w-screen min-w-screen bg-opacity-25 bg-gray-700">
       {!context.oppositePlayer ? (
-        <OnlineUsersList onlinePlayers={props.onlinePlayers}/>
+        <OnlineUsersList onlinePlayers={props.onlinePlayers} />
       ) : (
         <>
-          <div className="tic-tac-container">
-            <PlayingBoard onGameEnd={onGameEndHandler} />
+        <div className="flex flex-col sm:flex-row">
+        <div className="flex flex-col sm:flex-row">
+          <div className="sm:mr-4 mb-4 sm:mb-0">
+            <div className="w-full sm:w-80 h-64">
+              <PlayingBoard onGameEnd={onGameEndHandler} />
+            </div>
           </div>
-          <div className="score-board-container">
+        </div>
+        <div >
             <ScoreBoard gamescore={gscore} />
-          </div>
+         </div>
+         </div>
         </>
       )}
     </div>
