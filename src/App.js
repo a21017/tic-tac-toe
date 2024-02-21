@@ -20,30 +20,21 @@ function App() {
 
   const onQuit = ()=>{
 
-    socket.emit('onGameQuit',{oppositePlayer:oppositePlayer});
-    // socket.disconnect();
-    // setLoggedUser(null);
-    // setSocket(null);
-    // setAuthenticated(false);
-    // setIncomingRequest(null);
-    // setOpposition(null);
-    // setSign(null);
-  }
-
-  useEffect(()=>{
-
-    return ()=>{
-      if(socket)
-      onQuit();
-    }
-  },[])
+     socket.emit('onGameQuit',{oppositePlayer:oppositePlayer});
+  } 
 
   useEffect(()=>{
 
     if(socket){
       socket.on('getOnlinePlayers',(onlinePlayers)=>{
         setOnlinePlayers(onlinePlayers.filter((player)=>player.socket_id!==socket.id))
-        console.log(onlinePlayers.filter((player)=>player.socket_id!==socket.id))
+
+        if(oppositePlayer && !onlinePlayers.find((player)=>player.socket_id===oppositePlayer.socketId)){
+
+          console.log("Opposition left");
+          setOpposition(null);
+        }
+
       })
 
       socket.on('gamerequest',(request)=>{
@@ -57,6 +48,7 @@ function App() {
       })
 
       socket.on('gameQuit',({oppositePlayer,quitPlayer})=>{
+
         if(!oppositePlayer){
           socket.disconnect();
           setLoggedUser(null);
@@ -90,7 +82,7 @@ function App() {
 
     
 
-  },[socket]);
+  },[socket,oppositePlayer]);
 
   return (
     <AppContext.Provider value={{socket:socket,acceptor:acceptor,setAcceptor:setAcceptor,mySign:mySign,setSign:setSign,setSocket:setSocket,loggedInUser:loggedUser,oppositePlayer:oppositePlayer,setOpposition:setOpposition,incomingReq:incomingReq}}>
