@@ -13,11 +13,11 @@ const PlayingBoard = (props)=>{
     const [turn,setTurn] = useState('O');
 
      useEffect(()=>{props.onGameEnd(score);
-        // socket.emit('onturnplay',{updatedBoard:Array(9).fill(null),oppositePlayer:context.oppositePlayer,turn:turn,score:score});
             socket.emit('onscoreupdate',{oppositePlayer:context.oppositePlayer,score:score});
     },[score]);
 
      useEffect(()=>{
+
         socket.on('turnplayed',(updatedBoard,lTurn,score)=>{
             setBoard(updatedBoard);
             setTurn(lTurn);
@@ -88,9 +88,6 @@ const PlayingBoard = (props)=>{
             
             
            }
-
-//if draw condition
-
         
         })
 
@@ -135,7 +132,8 @@ if(flag){
 
 
     return (
-        <div className="board grid grid-cols-3 grid-rows-3 w-full h-full">
+        <>
+        <div className={"board grid grid-cols-3 grid-rows-3 w-full h-full opacity-35"+((turn===context.mySign)?"playable":"")}>
           <div className="tile bt-0 bl-0" onClick={onPlay} id="0">{board[0]}</div>
           <div className="tile bt-0" onClick={onPlay} id="1">{board[1]}</div>
           <div className="tile br-0 bt-0" onClick={onPlay} id="2">{board[2]}</div>
@@ -146,6 +144,7 @@ if(flag){
           <div className="tile bb-0" onClick={onPlay} id="7">{board[7]}</div>
           <div className="tile br-0 bb-0" onClick={onPlay} id="8">{board[8]}</div>
         </div>
+        </>
       );
       
 }

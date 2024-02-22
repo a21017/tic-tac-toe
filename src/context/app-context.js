@@ -8,6 +8,7 @@ const AppContext = createContext({
     incomingReq:null,
     mySign:null,
     acceptor:false,
+    playersLoading:false
 })
 
 export default AppContext;

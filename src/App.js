@@ -17,6 +17,10 @@ function App() {
   const [oppositePlayer,setOpposition] = useState(null);
   const [mySign,setSign] = useState(null);
   const [acceptor,setAcceptor] = useState(false);
+  const [playersLoading,setLoading] = useState(false);
+
+
+  console.log("PlayersLoading",playersLoading);
 
   const onQuit = ()=>{
 
@@ -30,16 +34,15 @@ function App() {
         setOnlinePlayers(onlinePlayers.filter((player)=>player.socket_id!==socket.id))
 
         if(oppositePlayer && !onlinePlayers.find((player)=>player.socket_id===oppositePlayer.socketId)){
-
-          console.log("Opposition left");
           setOpposition(null);
         }
+
+        setLoading(false);
 
       })
 
       socket.on('gamerequest',(request)=>{
         setIncomingRequest({name:request.senderName,socketId:request.senderSocketId})
-        // alert(`User : ${request.senderName} has requested a game !`)
       })
 
       socket.on('requestaccepted',(acceptedResponse)=>{
@@ -85,14 +88,14 @@ function App() {
   },[socket,oppositePlayer]);
 
   return (
-    <AppContext.Provider value={{socket:socket,acceptor:acceptor,setAcceptor:setAcceptor,mySign:mySign,setSign:setSign,setSocket:setSocket,loggedInUser:loggedUser,oppositePlayer:oppositePlayer,setOpposition:setOpposition,incomingReq:incomingReq}}>
+    <AppContext.Provider value={{playersLoading:playersLoading,socket:socket,acceptor:acceptor,setAcceptor:setAcceptor,mySign:mySign,setSign:setSign,setSocket:setSocket,loggedInUser:loggedUser,oppositePlayer:oppositePlayer,setOpposition:setOpposition,incomingReq:incomingReq}}>
     <BrowserRouter>
       <Routes>
         <Route
           path="/"
           element={isAuthenticated ? <MainScreen onlinePlayers={onlinePlayers} name={loggedUser} onQuit={onQuit}/> : <Navigate to="/login" />}
         />
-        <Route path="login" element={<Login setLoggedUser={(user)=>{setLoggedUser(user)}} setSocket={(socket)=>{setSocket(socket)}} setAuthenticated={()=>{setAuthenticated(true)}}/>} />
+        <Route path="login" element={<Login setLoading={(boolean)=>{setLoading(boolean)}} setLoggedUser={(user)=>{setLoggedUser(user)}} setSocket={(socket)=>{setSocket(socket)}} setAuthenticated={()=>{setAuthenticated(true)}}/>} />
       </Routes>
     </BrowserRouter>
     </AppContext.Provider>

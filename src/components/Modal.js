@@ -25,7 +25,7 @@ const Modal = ({ open, onClose }) => {
             <div>
               <button
                 onClick={onAccept}
-                className="bg-green-200 hover:bg-green-600 hover:text-white text-black font-bold py-2 px-4 rounded mb-2 sm:mb-0"
+                className="bg-green-200 hover:bg-green-600 hover:text-white text-black font-bold py-2 px-4 rounded mb-2 mr-2 sm:mb-0"
               >
                 ✔️ Accept
               </button>

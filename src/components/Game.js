@@ -1,4 +1,5 @@
 import AppContext from "../context/app-context";
+import Loader from "./Loader/Loader";
 // import "./Game.css";
 import OnlineUsersList from "./OnlineUsersList";
 import PlayingBoard from "./PlayingBoard";
@@ -13,9 +14,12 @@ const Game = (props) => {
     setGscore(score);
   };
 
+  console.log("Inside Game :",context.playersLoading);
+
   return (
     <div className="flex lg:justify-center md:justify-center sm:justify-center items-center min-h-screen w-screen min-w-screen bg-opacity-25 bg-gray-700">
-      {!context.oppositePlayer ? (
+    {context.playersLoading ? (<Loader/>) :
+      (!context.oppositePlayer ? (
         <OnlineUsersList onlinePlayers={props.onlinePlayers} />
       ) : (
         <>
@@ -32,7 +36,8 @@ const Game = (props) => {
          </div>
          </div>
         </>
-      )}
+      ))
+    }
     </div>
   );
 };

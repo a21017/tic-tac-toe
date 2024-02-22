@@ -16,6 +16,7 @@ const Login = (props) => {
 		props.setAuthenticated();
 		props.setSocket(socket);
 		props.setLoggedUser(name);
+		props.setLoading(true);
 		navigate('/');
 
 	}
