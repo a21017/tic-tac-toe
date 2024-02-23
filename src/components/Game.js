@@ -17,21 +17,19 @@ const Game = (props) => {
   console.log("Inside Game :",context.playersLoading);
 
   return (
-    <div className="flex lg:justify-center md:justify-center sm:justify-center items-center min-h-screen w-screen min-w-screen bg-opacity-25 bg-gray-700">
+    <div className="flex lg:justify-center md:justify-center sm:justify-center sm:items-center xs:items-start xs:justify-center items-center min-h-screen w-screen min-w-screen bg-opacity-25 bg-gray-700">
     {context.playersLoading ? (<Loader/>) :
       (!context.oppositePlayer ? (
-        <OnlineUsersList onlinePlayers={props.onlinePlayers} />
+            <OnlineUsersList onlinePlayers={props.onlinePlayers} />
       ) : (
         <>
-        <div className="flex flex-col sm:flex-row">
-        <div className="flex flex-col sm:flex-row">
-          <div className="sm:mr-4 mb-4 sm:mb-0">
-            <div className="w-full sm:w-80 h-64">
+        <div className="flex flex-col sm:flex-row h-full w-full justify-evenly xs:mt-6">
+          <div className="sm:mr-4 mb-4 sm:mb-0 xs:flex xs:justify-center">
+            <div className="w-full sm:w-80 xs:w-80 xs:h-60 h-64">
               <PlayingBoard onGameEnd={onGameEndHandler} />
             </div>
           </div>
-        </div>
-        <div >
+        <div>
             <ScoreBoard gamescore={gscore} />
          </div>
          </div>
