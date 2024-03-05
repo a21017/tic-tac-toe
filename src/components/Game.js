@@ -18,7 +18,7 @@ const Game = (props) => {
 
   return (
     <div className="flex lg:justify-center md:justify-center sm:justify-center sm:items-center xs:items-start xs:justify-center items-center min-h-screen w-screen min-w-screen bg-opacity-25 bg-gray-700">
-    {context.playersLoading ? (<Loader/>) :
+    {context.playersLoading ? (<div className="sm:mt-0 xs:mt-28"><Loader/></div>) :
       (!context.oppositePlayer ? (
             <OnlineUsersList onlinePlayers={props.onlinePlayers} />
       ) : (

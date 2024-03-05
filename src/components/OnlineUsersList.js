@@ -20,7 +20,7 @@ const OnlineUsersList = (props) => {
   return (
     <>
       {props.onlinePlayers.length === 0 && 
-      <div className="flex flex-col justify-center items-center xs:mt-6">
+      <div className="flex flex-col justify-center items-center sm:mt-0 xs:mt-28">
       <img className='text-center w-[100px]' src={imageDownoad}></img>
       <h3 className="text-center text-xl font-semibold">No Players Online</h3>
       </div>
